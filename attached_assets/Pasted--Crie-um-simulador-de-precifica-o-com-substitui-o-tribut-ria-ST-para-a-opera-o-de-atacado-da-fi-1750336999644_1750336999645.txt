@@ -1,0 +1,133 @@
+
+Crie um simulador de precificação com substituição tributária (ST) para a operação de atacado da filial MG. O simulador deve ser moderno, funcional e organizado por seções visuais (em cartões ou abas), com interface intuitiva e pronta para uso por equipes comerciais.
+
+────────────────────────────────────
+🔷 SEÇÃO 1 – DADOS DE COMPRA (Card 1)
+────────────────────────────────────
+Campos de entrada:
+- Custo de Compra (R$)
+- IPI Compra (%) 
+- ICMS Compra (%) 
+- PIS/COFINS Compra (%)
+- Frete (%) – calculado com base no custo de compra
+
+➕ Todos os campos devem ser numéricos, com preenchimento validado.  
+➕ Usar layout em colunas, com agrupamento claro de impostos e frete.
+
+────────────────────────────────────
+🔷 SEÇÃO 2 – CÁLCULO DO CMV (Card 2)
+────────────────────────────────────
+Campos calculados automaticamente:
+- Valor do IPI (R$)
+- Valor do ICMS Compra (R$)
+- Valor do PIS/COFINS Compra (R$)
+- Valor do Frete (R$)
+- **CMV Final = Custo de Compra + IPI - ICMS Compra - PIS/COFINS Compra + Frete**
+
+➡ Destaque visual para o **CMV Final** (cartão azul claro ou destaque numérico)
+
+────────────────────────────────────
+🔷 SEÇÃO 3 – IMPOSTOS E MARGENS DE VENDA (Card 3)
+────────────────────────────────────
+Entradas:
+- ICMS Venda (%)
+- PIS/COFINS Venda (%)
+- Devolução (%) – valor padrão sugerido: 0,5%
+- Margem Bruta (%)
+- Flex (%)
+- MVA (%) – zero se não houver
+
+➕ Seleção da **Condição de Pagamento** via dropdown. Aplicar fator automaticamente com base na tabela abaixo:
+
+📊 **Tabela de Fatores:**
+À Vista: 1,0053 | 7 Dias: 1,0057 | 14 Dias: 1,0115 | 21 Dias: 1,0173  
+30 Dias: 1,0250 | 45 Dias (Martcon): 1,0264 | 60 Dias: 1,0496  
+30/60 Dias: 1,0534 | 20/40/60 Dias (Martcon): 1,0234  
+30/60/90 Dias (Martcon): 1,0353 | 14/21/28 Dias: 1,0174  
+20/40 Dias (Martcon): 1,0250
+
+────────────────────────────────────
+🔷 SEÇÃO 4 – RESULTADOS DA PRECIFICAÇÃO (Card 4)
+────────────────────────────────────
+Cálculos automáticos:
+
+- **Preço sem ST =**  
+  (CMV Final ÷  
+  ((1 - ICMS Venda - (1 - ICMS Venda) × PIS/COFINS Venda - Devolução) ×  
+  (1 - Margem Bruta) ×  
+  (1 - Flex))) × Fator Condição
+
+- **Base ST =** Preço sem ST × (1 + MVA)  
+- **ST Débito =** Base ST × ICMS Venda  
+- **ST Crédito =** Preço sem ST × ICMS Venda  
+- **Valor ST =** ST Débito - ST Crédito  
+- **Preço com ST =** Preço sem ST + Valor ST  
+- **Preço com ST - FLEX =** Preço com ST - (Preço com ST × Flex)  
+- **Markup =** (Preço com ST - FLEX ÷ Custo de Compra) - 1
+
+📘 Os seguintes campos devem ser exibidos em **cards visuais destacados**:
+- Preço sem ST
+- Preço com ST
+- Preço com ST - FLEX
+- Markup
+
+────────────────────────────────────
+🔷 SEÇÃO 5 – SIMULADOR REVERSO (Card 5 ou aba separada)
+────────────────────────────────────
+Título: 🎯 **Simulador Reverso – Partindo de Preço Alvo**
+
+Entrada principal:
+- **Preço Alvo (R$)** → representa o **valor de venda final desejado**, já considerando:
+  - Substituição Tributária (ST)
+  - Desconto do Flex
+
+🟩 Ou seja: **Preço Alvo = Preço com ST - FLEX**
+
+📥 Ao preencher o preço alvo, usar os dados da simulação principal automaticamente (IPI, ICMS, frete, margens, condição, etc.) para calcular:
+
+- **Custo de Compra Ideal (R$)**
+- **Margem Bruta Ideal (%)**
+- **Markup do Preço Alvo (%)** = (Preço Alvo ÷ Custo de Compra) - 1
+
+📐 **Fórmula de Margem Bruta Ideal:**
+
+
+Margem Bruta Ideal =
+1 - \[
+CMV Final ÷
+(Preço Alvo ÷ Fator Condição ÷ (1 - Flex)) ÷
+(1 - ICMS Venda - (1 - ICMS Venda) × PIS/COFINS Venda - Devolução)
+]
+
+
+
+Os resultados devem ser exibidos em cartões destacados semelhantes à simulação direta.
+
+────────────────────────────────────
+🔷 SEÇÃO 6 – EXPORTAÇÃO
+────────────────────────────────────
+Adicionar botão “📤 Exportar Simulação” visível nas duas seções (direta e reversa).  
+Permitir ao usuário:
+
+- Gerar **PDF (.pdf)** ou **Excel (.xlsx)** com os seguintes dados:
+  - Entradas preenchidas
+  - Todos os cálculos intermediários
+  - Resultados finais (com e sem ST, com e sem FLEX, markup, preço alvo, etc.)
+
+O arquivo gerado deve ser visualmente organizado, com títulos e divisão em blocos.
+
+────────────────────────────────────
+🔷 LAYOUT VISUAL E USABILIDADE
+────────────────────────────────────
+- Dividir o simulador em **seções visuais ou cartões**
+- Usar layout em **colunas organizadas**
+- Campos de entrada: fundo branco
+- Campos calculados: fundo cinza ou travados
+- Cards de resultados: fundo azul claro ou verde claro, com bordas suaves
+- Atualização automática de resultados
+- Botões bem localizados e fáceis de acessar
+- Títulos com ícones para facilitar leitura (ex: 🧮 CMV, 🎯 Preço Alvo)
+
+────────────────────────────────────
+
+Com esse simulador, o usuário poderá realizar simulações de venda com ST completas e também simulações reversas para encontrar o custo ideal, margem ideal ou markup necessário a partir de um preço alvo.

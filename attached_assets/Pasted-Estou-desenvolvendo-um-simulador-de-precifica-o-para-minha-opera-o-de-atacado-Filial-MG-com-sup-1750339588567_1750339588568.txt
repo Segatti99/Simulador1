@@ -1,0 +1,70 @@
+Estou desenvolvendo um simulador de precificação para minha operação de atacado (Filial MG), com suporte à geração de PDF. A estrutura atual está simples e mal formatada. Quero que você reestruture totalmente o layout visual mantendo todas as seções e cálculos abaixo, mas apresentando os dados de forma profissional, limpa e bem organizada, pronta para exportação em PDF.
+
+### Objetivos:
+1. Deixar o layout moderno, com hierarquia visual clara (títulos, subtítulos, blocos de dados).
+2. Usar boas práticas de espaçamento, alinhamento e fontes.
+3. Aplicar estilos como bordas leves, sombreamento sutil, separadores de seção e tipografia consistente.
+4. Destacar dados relevantes (como Preço com ST, CMV, Margem Ideal, etc.)
+5. Manter compatibilidade com exportação para PDF.
+
+---
+
+### Conteúdo que deve aparecer no PDF:
+
+# Cabeçalho
+- Título: SIMULADOR DE PRECIFICAÇÃO COM SUBSTITUIÇÃO TRIBUTÁRIA
+- Subtítulo: Filial MG - Operações de Atacado
+- Data de Exportação: 19/06/2025
+- Horário: 13:20:42
+
+# Bloco 1 – DADOS DE COMPRA
+- Custo de Compra (R$): R$ 10,00
+- IPI Compra (%): 6,50%
+- ICMS Compra (%): 12,00%
+- PIS/COFINS Compra (%): 9,25%
+- Frete (%): 10,00%
+
+# Bloco 2 – CÁLCULO DO CMV
+- Valor do IPI (R$): R$ 0,65
+- Valor ICMS Compra (R$): R$ 1,20
+- Valor PIS/COFINS (R$): R$ 0,87
+- Valor do Frete (R$): R$ 1,00
+- **CMV FINAL: R$ 9,58** (colocar em destaque)
+
+# Bloco 3 – IMPOSTOS E MARGENS DE VENDA
+- ICMS Venda (%): 18,00%
+- PIS/COFINS Venda (%): 9,25%
+- Devolução (%): 0,50%
+- Margem Bruta (%): 25,00%
+- Flex (%): 7,00%
+- MVA (%): 35,00%
+- Fator Condição de Pagamento: 1.0234
+
+# Bloco 4 – RESULTADOS DA PRECIFICAÇÃO
+- Preço sem ST (R$): R$ 19,01
+- Base ST (R$): R$ 25,66
+- ST Débito (R$): R$ 4,62
+- ST Crédito (R$): R$ 3,42
+- Valor ST (R$): R$ 1,20
+- **Preço com ST: R$ 20,21** (destacar em cor)
+- **Preço Final (-FLEX): R$ 18,79** (destacar em negrito e borda)
+- MARKUP: 87,92%
+
+# Bloco 5 – SIMULAÇÃO REVERSA
+- Preço Alvo (R$): R$ 16,00
+- Custo de Compra Ideal (R$): R$ 8,60
+- Margem Bruta Ideal (%): 63,80%
+- Markup do Preço Alvo (%): 86,10%
+
+# Rodapé
+- Simulador de Precificação ST - Filial MG
+- Gerado em 19/06/2025, 13:20:42
+
+---
+
+### Requisitos técnicos
+- Layout deve ser responsivo, mesmo para exportação em PDF A4.
+- Use HTML e CSS com foco em aparência profissional.
+- Pode usar bibliotecas de estilo como Bootstrap ou Tailwind se desejar.
+- Formatação monetária (R$) deve estar correta.
+- Evitar códigos especiais Unicode que quebram exportação.
